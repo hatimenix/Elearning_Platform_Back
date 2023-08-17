@@ -161,6 +161,14 @@ class Article(models.Model):
 class Favori(models.Model):
     id_fav = models.AutoField(primary_key=True)
     article = models.ForeignKey( Article , on_delete=models.CASCADE)
+    buyer = models.ForeignKey( Buyer , on_delete=models.CASCADE)
+
+
+class Panier(models.Model):
+    id_pan = models.AutoField(primary_key=True)
+    article = models.ForeignKey( Article , on_delete=models.CASCADE)
+    quantite = models.IntegerField(default=1)
+    buyer = models.ForeignKey( Buyer , on_delete=models.CASCADE)
 
 
 
