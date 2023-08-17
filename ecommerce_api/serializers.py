@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from .models import User,Seller,Buyer,Manager
 from rest_framework import serializers
-from .models import User,Seller,Buyer,Manager
-
+from .models import User,Seller,Buyer,Manager,Category, Article, Favori , Properties
 
 class UserSer(serializers.ModelSerializer):
 
@@ -25,3 +24,26 @@ class ManagerSer(serializers.ModelSerializer):
     class Meta:
         model = Manager
         fields = "__all__"
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class ArticleSerializer(serializers.ModelSerializer):
+    favoris = serializers.PrimaryKeyRelatedField(many=True, queryset=Favori.objects.all(), required=False)
+
+    class Meta:
+        model = Article
+        fields = '__all__'
+
+class FavoriSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favori
+        fields = '__all__'
+
+
+class PropertiesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Properties
+        fields = '__all__'

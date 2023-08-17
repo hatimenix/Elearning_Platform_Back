@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from .models import User,Manager,Seller,Buyer
-from .serializers import UserSer,ManagerSer,SellerSer,BuyerSer
+from .models import User,Manager,Seller,Buyer,Category, Article, Favori , Properties
+from .serializers import UserSer,ManagerSer,SellerSer,BuyerSer,CategorySerializer, ArticleSerializer, FavoriSerializer , PropertiesSerializer
 from rest_framework import permissions ,viewsets ,status
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.hashers import check_password
 from rest_framework.views import APIView
+from rest_framework import viewsets, filters
 
 
 class UserView(viewsets.ModelViewSet):
@@ -195,3 +196,27 @@ class UserDetailsAPIView(APIView):
         user = request.user
         serializer = UserSer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['id_cat', 'titre']  # Add more fields if needed
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['id_art', 'titre', 'description']  # Add more fields if needed
+
+class FavoriViewSet(viewsets.ModelViewSet):
+    queryset = Favori.objects.all()
+    serializer_class = FavoriSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['id_fav']  # Add more fields if needed
+class PropertiesViewSet(viewsets.ModelViewSet):
+    queryset = Properties.objects.all()
+    serializer_class = PropertiesSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['id_pro']  # Add more fields if needed
