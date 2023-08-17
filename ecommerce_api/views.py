@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from .models import User,Manager,Seller,Buyer,Category, Article, Favori , Properties
+from .models import User,Manager,Seller,Buyer,Category, Article, Favori , Properties, Panier
 from .serializers import UserSer,ManagerSer,SellerSer,BuyerSer,CategorySerializer, ArticleSerializer, FavoriSerializer , PropertiesSerializer
 from rest_framework import permissions ,viewsets ,status
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -140,6 +140,8 @@ class SellerTokenObtainPairView(TokenObtainPairView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+
+
 #Buyer login    
 class BuyerTokenObtainPairView(TokenObtainPairView):
     # permission_classes = [IsAuthenticatedOrDenied]
@@ -203,6 +205,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id_cat', 'titre']  # Add more fields if needed
+    
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
@@ -210,13 +213,24 @@ class ArticleViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['id_art', 'titre', 'description']  # Add more fields if needed
 
+
 class FavoriViewSet(viewsets.ModelViewSet):
     queryset = Favori.objects.all()
     serializer_class = FavoriSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id_fav']  # Add more fields if needed
+
+
 class PropertiesViewSet(viewsets.ModelViewSet):
     queryset = Properties.objects.all()
     serializer_class = PropertiesSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id_pro']  # Add more fields if needed
+
+
+
+class PanierViewSet(viewsets.ModelViewSet):
+    queryset = Panier.objects.all()
+    serializer_class = PropertiesSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['id_pan']  # Add more fields if needed

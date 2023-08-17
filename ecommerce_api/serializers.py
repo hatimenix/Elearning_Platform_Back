@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User,Seller,Buyer,Manager
 from rest_framework import serializers
-from .models import User,Seller,Buyer,Manager,Category, Article, Favori , Properties
+from .models import User,Seller,Buyer,Manager,Category, Article, Favori , Properties, Panier
 
 class UserSer(serializers.ModelSerializer):
 
@@ -40,6 +40,12 @@ class ArticleSerializer(serializers.ModelSerializer):
 class FavoriSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favori
+        fields = '__all__'
+
+
+class PanierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Panier
         fields = '__all__'
 
 
